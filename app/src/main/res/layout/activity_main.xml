@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/tname"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NAME:"
+    />
+
+
+    <TextView
+        android:id="@+id/temail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EMAIL:"
+        android:layout_alignLeft="@id/tname"
+        android:layout_below="@id/tname"
+        android:paddingTop="20dp"
+        />
+
+    <TextView
+        android:id="@+id/tmobnum"
+        android:paddingTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="MOBILE NUMBER:"
+        android:layout_alignLeft="@id/tname"
+        android:layout_below="@id/temail"
+        />
+    <EditText
+         android:id="@+id/ename"
+         android:layout_width="200dp"
+         android:layout_height="wrap_content"
+         android:layout_toRightOf="@+id/tname"
+         />
+    <EditText
+        android:id="@+id/eemail"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/temail"
+        android:layout_alignTop="@+id/temail"
+        />
+    <EditText
+        android:id="@+id/emobnum"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tmobnum"
+        android:layout_alignTop="@+id/tmobnum"
+        />
+
+
+
+    <ScrollView
+        android:id="@+id/scrlview"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@id/tmobnum">
+        <TextView
+            android:id="@+id/DBinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"/>
+
+    </ScrollView>
+
+
+    <Button
+        android:id="@+id/write"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WRITE"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:background="@color/colorAccent"
+        android:layout_marginBottom="20dp"
+        android:textColor="@android:color/white"
+        />
+    <Button
+        android:id="@+id/read"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="READ"
+        android:layout_alignBottom="@id/write"
+        android:layout_toRightOf="@id/write"
+        android:background="@color/colorAccent"
+        android:layout_marginLeft="5dp"
+        android:textColor="@android:color/white"
+
+        />
+    <Button
+        android:id="@+id/update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="UPDATE"
+        android:layout_alignBottom="@id/write"
+        android:background="@color/colorAccent"
+        android:layout_marginLeft="5dp"
+        android:textColor="@android:color/white"
+
+        android:layout_toRightOf="@id/read"
+        />
+    <Button
+        android:id="@+id/remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="REMOVE"
+        android:layout_alignBottom="@id/write"
+        android:layout_toRightOf="@id/update"
+        android:background="@color/colorAccent"
+        android:layout_marginLeft="5dp"
+        android:textColor="@android:color/white"
+
+
+        />
+
+</RelativeLayout>
