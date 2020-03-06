@@ -3,6 +3,7 @@ package lzk.com.example.sqlite;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
@@ -27,9 +28,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         myHelper = new MyHelper(this);
-        myHelper.getWritableDatabase();
+        //myHelper.getWritableDatabase();
 
-        //mydatabase = openOrCreateDatabase("MyDB",MODE_PRIVATE,null);
 
         name = findViewById(R.id.ename);
         email = findViewById(R.id.eemail);
@@ -51,28 +51,42 @@ public class MainActivity extends AppCompatActivity {
                         email.getText().toString().isEmpty()&&
                         mobnum.getText().toString().isEmpty()
                 ){
-
+                    Toast.makeText(MainActivity.this, "Empty info!", Toast.LENGTH_SHORT).show();
                 }else{
 
                 SQLiteDatabase db =myHelper.getWritableDatabase();
                 ContentValues values = new ContentValues();
+
                 values.put("name",name.getText().toString());
                 values.put("email",email.getText().toString());
                 values.put("mobnum",mobnum.getText().toString());
-                long id = db.insert("mydb.db",null,values);
+                db.insert("t_user",null,values);
                 db.close();
+                Toast.makeText(MainActivity.this, "Added!", Toast.LENGTH_SHORT).show();
+
                 }
-
-
-
-
-
             }
         });
 
         read.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SQLiteDatabase db =myHelper.getWritableDatabase();
+                Cursor cursor = db.query("t_user",null,null,null,null,null,null,null);
+
+                if (cursor.getCount()==0){
+                    Toast.makeText(MainActivity.this, "NO DATA", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(MainActivity.this, "DB GET!", Toast.LENGTH_SHORT).show();
+                    cursor.moveToFirst();
+                    info.setText("Name: "+cursor.getString(0)+"\nEmail: "+cursor.getString(1)+"\nPhone num: "+cursor.getString(2)+"\n");
+                }
+                while (cursor.moveToNext()){
+                    info.append("\n"+"Name: "+cursor.getString(0)+"\nEmail: "+cursor.getString(1)+"\nPhone num: "+cursor.getString(2)+"\n");
+
+                }
+                cursor.close();
+                db.close();
 
             }
         });
@@ -80,11 +94,25 @@ public class MainActivity extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SQLiteDatabase db =myHelper.getWritableDatabase();
-                ContentValues values = new ContentValues();
-                //values.put("");
 
+                if (name.getText().toString().isEmpty()&&
+                        email.getText().toString().isEmpty()&&
+                        mobnum.getText().toString().isEmpty()
+                ){
+                    Toast.makeText(MainActivity.this, "Empty info!", Toast.LENGTH_SHORT).show();
+                }else {
 
+                    SQLiteDatabase db = myHelper.getWritableDatabase();
+                    ContentValues values = new ContentValues();
+                    values.put("name", name.getText().toString());
+                    db.update("t_user", values, "mobnum=?", new String[]{mobnum.getText().toString()});
+
+                    values.put("email", email.getText().toString());
+                    db.update("t_user", values, "mobnum=?", new String[]{mobnum.getText().toString()});
+
+                    db.close();
+                    Toast.makeText(MainActivity.this, "Update Complete", Toast.LENGTH_SHORT).show();
+                }
 
 
             }
@@ -92,6 +120,11 @@ public class MainActivity extends AppCompatActivity {
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SQLiteDatabase db =myHelper.getWritableDatabase();
+                db.delete("t_user",null,null);
+                Toast.makeText(MainActivity.this, "DB All clear!", Toast.LENGTH_SHORT).show();
+                db.close();
+                info.setText("No Data");
             }
         });
 
